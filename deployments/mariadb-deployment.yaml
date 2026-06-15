@@ -1,4 +1,4 @@
-apiVesion: v1
+apiVesion: apps/v1
 kind: Deployment
 metadata:
   name: mariadb
@@ -20,7 +20,6 @@ spec:
         image: linuxserver/mariadb:latest
         ports:
         - containerPort: 3306
-          name: mysql
         env:
         - name: MYSQL_ROOT_PASSWORD
           valueFrom:
@@ -37,9 +36,15 @@ spec:
             secretKeyRef:
               name: bookstack-secrets
               key: DB_USERNAME
-        - namme: MYSQL_PASSWORD:
+        - name: MYSQL_PASSWORD`
           valueFrom:
             secretKeyRef:
               name: bookstack-secrets
               key: DB_PASSWORD
-
+        volumeMounts:
+        - name: mariadb-storage
+          mountPath: /config
+      volumes:
+      - name: mariadb-storage
+        persistentVolumeClaim:
+          claimName: mariadb-data 
