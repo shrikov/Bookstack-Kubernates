@@ -20,6 +20,13 @@ spec:
         image: linuxserver/mariadb:latest
         ports:
         - containerPort: 3306
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "500m"
+          limits:
+            memory: "1Gi"
+            cpu: "1"
         env:
         - name: MYSQL_ROOT_PASSWORD
           valueFrom:
@@ -36,7 +43,7 @@ spec:
             secretKeyRef:
               name: bookstack-secrets
               key: DB_USERNAME
-        - name: MYSQL_PASSWORD`
+        - name: MYSQL_PASSWORD
           valueFrom:
             secretKeyRef:
               name: bookstack-secrets
