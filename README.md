@@ -83,6 +83,3 @@ Default Credentials:
 Email: admin@admin.com
 
 Password: password
-
-# Push to GitHub
-git push origin main
