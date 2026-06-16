@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bookstack
+  labels:
+    app: bookstack
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bookstack
+  template:
+    metadata:
+      labels:
+        app: bookstack
+    spec:
+      containers:
+      - name: bookstack
+        image: linuxserver/bookstack:latest
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        env:
+        - name: DB_HOST
+          valueFrom:
+            secretKeyRef:
+              name: bookstack-secrets
+              key: DB_HOST
+        - name: DB_PORT
+          valueFrom:
+            secretKeyRef:
+              name: bookstack-secrets
+              key: DB_PORT
+        - name: DB_DATABASE
+          valueFrom:
+            secretKeyRef:
+              name: bookstack-secrets
+              key: DB_DATABASE
+        - name: DB_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: bookstack-secrets
+              key: DB_USERNAME
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: bookstack-secrets
+              key: DB_PASSWORD
+        volumeMounts:
+        - name: bookstack-storage
+          mountPath: /var/www/bookstack/storage
+        - name: bookstack-config
+          mountPath: /config
+      volumes:
+      - name: bookstack-storage
+        persistentVolumeClaim:
+          claimName: bookstack-data
+      - name: bookstack-config
+        persistentVolumeClaim:
+          claimName: bookstack-data
