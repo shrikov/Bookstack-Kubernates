@@ -6,7 +6,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: bookstack.local       #hostname
+  - host: redhat-main.localdomain       #hostname
     http:
       paths:
       - path: /
@@ -15,4 +15,4 @@ spec:
           service:
             name: bookstack-service
             port:
-              number: 80
+              number: 8080

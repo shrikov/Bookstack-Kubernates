@@ -4,11 +4,9 @@ metadata:
   name: mariadb-data
   namespace: bookstack
 spec:
-  volumeMode: Filesystem
   resources:
     requests:
       storage: 10Gi
-  storageClassName: local-storage
   accessModes:
     - ReadWriteOnce
   selector:

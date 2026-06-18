@@ -19,7 +19,8 @@ spec:
     required:
       nodeSelectorTerms:
       - matchExpressions:
-        - key: kubernates.io/hostname
+        - key: kubernates.io/redhat-main.localdomain
           operator: In
           values:
-          - hostname
+          - redhat-main.localdomain
+

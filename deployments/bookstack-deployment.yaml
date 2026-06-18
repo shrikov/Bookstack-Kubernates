@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: bookstack
+  namespace: bookstack
   labels:
     app: bookstack
 spec:
@@ -18,7 +19,7 @@ spec:
       - name: bookstack
         image: linuxserver/bookstack:latest
         ports:
-        - containerPort: 80
+        - containerPort: 8080
         resources:
           requests:
             memory: "256Mi"
@@ -27,11 +28,13 @@ spec:
             memory: "512Mi"
             cpu: "500m"
         env:
-        - name: DB_HOST
+        - name: APP_KEY
           valueFrom:
             secretKeyRef:
               name: bookstack-secrets
-              key: DB_HOST
+              key: APP_KEY
+        - name: DB_HOST
+          value: "mariadb-service"
         - name: DB_PORT
           valueFrom:
             secretKeyRef:
@@ -58,9 +61,9 @@ spec:
         - name: bookstack-config
           mountPath: /config
       volumes:
-      - name: bookstack-storage
-        persistentVolumeClaim:
-          claimName: bookstack-data
       - name: bookstack-config
         persistentVolumeClaim:
-          claimName: bookstack-data
+          claimName: bookstack-config-pvc
+      - name: bookstack-storage
+        persistentVolumeClaim:
+          claimName: bookstack-storage-pvc

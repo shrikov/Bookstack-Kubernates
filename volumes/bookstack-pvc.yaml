@@ -1,17 +1,14 @@
 apiVersion: v1
-kind: persistentVolumeClaim
+kind: PersistentVolumeClaim
 metadata:
   name: bookstack-data
   namespace: bookstack
 spec:
+  selector:
+    matchLabels:
+      app: bookstack
   accessModes:
-  - ReadWriteOnce
-  volumeMode: Filesystem
+    - ReadWriteOnce
   resources:
     requests:
       storage: 20Gi
-  storageClassName: local-storage
-  selector:
-    matchLabels:
-      type: local
-      app: bookstack

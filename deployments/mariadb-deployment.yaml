@@ -1,4 +1,4 @@
-apiVesion: apps/v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mariadb
@@ -6,7 +6,7 @@ metadata:
   labels:
     app: mariadb
 spec:
-  replicaas: 1
+  replicas: 1
   selector:
     matchLabels:
       app: mariadb
@@ -28,6 +28,8 @@ spec:
             memory: "1Gi"
             cpu: "1"
         env:
+        - name: REMOTE_MANAGEMENT    # 🌟 ضيف السطرين دول هنا
+          value: "true"
         - name: MYSQL_ROOT_PASSWORD
           valueFrom:
             secretKeyRef:
