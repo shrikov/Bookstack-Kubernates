@@ -28,13 +28,21 @@ spec:
             memory: "512Mi"
             cpu: "500m"
         env:
+        - name: APP_URL
+          valueFrom:
+            secretKeyRef:
+              name: bookstack-secrets
+              key: APP_URL
         - name: APP_KEY
           valueFrom:
             secretKeyRef:
               name: bookstack-secrets
               key: APP_KEY
         - name: DB_HOST
-          value: "mariadb-service"
+          valueFrom:
+            secretKeyRef:
+              name: bookstack-secrets
+              key: DB_HOST
         - name: DB_PORT
           valueFrom:
             secretKeyRef:
