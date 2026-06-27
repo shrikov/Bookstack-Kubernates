@@ -1,0 +1,14 @@
+# Install socat if not installed
+sudo dnf install socat -y
+
+# Forward from host port 30080 to minikube's NodePort
+sudo socat TCP-LISTEN:30080,fork,reuseaddr TCP:192.168.49.2:30080 &
+
+# Test now
+sudo firewall-cmd --permanent --add-port=30080/tcp
+sudo firewall-cmd --reload
+
+curl http://localhost:30080
+curl http://10.0.0.130:30080
+
+

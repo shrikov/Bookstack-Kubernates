@@ -8,7 +8,8 @@ spec:
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: /mnt/data/bookstack_config   # فولدر منفصل تماماً
+    path: /mnt/data/bookstack_config
+    type: DirectoryOrCreate
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -32,7 +33,8 @@ spec:
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: /mnt/data/bookstack_storage  # فولدر منفصل تماماً
+    path: /mnt/data/bookstack_storage
+    type: DirectoryOrCreate
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim

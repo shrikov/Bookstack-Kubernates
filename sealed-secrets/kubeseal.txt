@@ -1,0 +1,4 @@
+kubeseal --format yaml < bookstack-plain-secret.yaml > sealed-secret.yaml
+
+APP_KEY="base64:$(openssl rand -base64 32 | tr -d '\n')"
+echo "Generated APP_KEY: $APP_KEY"
